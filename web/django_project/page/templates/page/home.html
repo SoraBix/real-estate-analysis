@@ -1,0 +1,22 @@
+{% extends "page/base.html" %}
+{% block content %}
+	{% for post in posts %}
+		<article class="media content-section">
+			<div class="media-body">
+				<h2><a class="article-title" href={{ post.craigslist }}>{{ post.title }}</a></h2>
+				<br>
+				<p class="article-content">{{ post.detail }}</p>
+				<br>
+				<div class="article-metadata">
+				</div>
+				<p class="article-content">
+					Craigslist: <a href={{ post.craigslist }}>{{ post.craigslist }}</a>
+					Realtor: <a href={{ post.realtor }}>{{ post.realtor }}</a>
+				</p>
+				<div class="article-metadata">
+				</div>
+				<a href="http://maps.google.com/?q={{ post.c_latitude }},{{ post.c_longitude }}"><small class="text-muted">{{ post.address }} {{ post.area }} {{ post.region }} {{ post.postal }}</small></a>
+			</div>
+		</article>
+	{% endfor %}
+{% endblock content %}
