@@ -6,14 +6,19 @@ from bs4 import BeautifulSoup
 class CraigslistSpider(scrapy.Spider):
 	name = "craigslist"
 	allowed_domains = ["losangeles.craigslist.org"]
-	# start_urls = ["https://losangeles.craigslist.org/d/housing/search/hhh"]
-	start_urls = ["https://losangeles.craigslist.org/d/apts-housing-for-rent/search/apa"]
-	download_delay = 1
+	start_urls = []
+	for i in range(0, 3000, 120):
+		tmp_url = "https://losangeles.craigslist.org/search/apa"
+		if i == 0:
+			start_urls.append(tmp_url)
+		else:
+			start_urls.append(tmp_url+'?s='+str(i))
+	download_delay = 0.5
 	exporter = None
-	output_path = "../../../output/craigslist.json"
 
 	def parse(self, response):
 		try:
+			output_path = "/Users/sora/DATA/Work/Career/real-estate-analysis/output/craigslist.json"
 			ouput_file = open(output_path, 'w')
 			self.exporter = JsonItemExporter(ouput_file)
 			self.exporter.start_exporting()

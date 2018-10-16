@@ -6,14 +6,19 @@ from bs4 import BeautifulSoup
 class RealtorSpider(scrapy.Spider):
 	name = "realtor"
 	allowed_domains = ["realtor.com"]
-	# start_urls = ["https://www.realtor.com/realestateandhomes-search/Los-Angeles_CA"]
-	start_urls = ["https://www.realtor.com/apartments/Los-Angeles_CA"]
+	start_urls = []
+	for i in range(1, 68):
+		tmp_url = "https://www.realtor.com/apartments/Los-Angeles_CA"
+		if i == 1:
+			start_urls.append(tmp_url)
+		else:
+			start_urls.append(tmp_url+'/pg-'+str(i))
 	download_delay = 0.5
 	exporter = None
-	output_path = "../../../output/realtor.json"
 
 	def parse(self, response):
 		try:
+			output_path = "/Users/sora/DATA/Work/Career/real-estate-analysis/output/realtor.json"
 			ouput_file = open(output_path, 'w')
 			self.exporter = JsonItemExporter(ouput_file)
 			self.exporter.start_exporting()
